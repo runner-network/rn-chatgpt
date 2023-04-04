@@ -73,9 +73,9 @@ DEFAULT_CONFIG = {
                 'programmer': SYSTEM_MESSAGE_PROGRAMMER,
             },
         },
-        'streaming': False,
+        'streaming': True,
         'log': {
-            'enabled': False,
+            'enabled': True,
             'filepath': 'chatgpt.log',
         },
     },
@@ -92,7 +92,7 @@ DEFAULT_CONFIG = {
     },
     'debug': {
         'log': {
-            'enabled': False,
+            'enabled': True,
             'filepath': '%s%schatgpt-debug.log' % (tempfile.gettempdir(), os.path.sep),
             'level': 'debug',
             'format': '%(name)s - %(asctime)s - %(levelname)s - %(message)s',

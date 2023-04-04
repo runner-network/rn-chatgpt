@@ -189,7 +189,10 @@ class OpenAIAPI(Backend):
         if len(old_messages) == 0:
             system_message = system_message or self.model_system_message
             new_messages.append(self.build_openai_message('system', system_message))
-        new_messages.append(self.build_openai_message('user', prompt))
+        #new_messages.append(self.build_openai_message('user', prompt))
+        # FIXME: here we assumpt prompt is an array of messages.
+        for p in prompt:
+            new_messages.append(p)
         return old_messages, new_messages
 
     def prepare_prompt_messsage_context(self, old_messages=[], new_messages=[]):

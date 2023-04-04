@@ -1,5 +1,5 @@
 import argparse
-
+import json
 from flask import Flask, jsonify, request
 
 from chatgpt_wrapper.backends.openai.api import OpenAIAPI
@@ -31,7 +31,11 @@ def create_application(name, config=None, timeout=60, proxy=None):
             STRING:
                 Some response.
         """
-        prompt = request.get_data().decode("utf-8")
+        # FIXME:
+        #prompt = request.get_data().decode("utf-8")
+
+        prompt = json.parse(request.get_data().decode("utf-8"))
+        print(f"received prompt: {prompt}")
         success, result, user_message = gpt.ask(prompt)
         return result
 
@@ -165,7 +169,7 @@ def create_application(name, config=None, timeout=60, proxy=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=5000)
+    parser.add_argument("--port", type=int, default=5001)
     args = parser.parse_args()
     app = create_application("chatgpt")
     app.run(host="0.0.0.0", port=args.port, threaded=False)
