@@ -21,7 +21,7 @@ OPENAPI_CHAT_RENDER_MODELS = {
     "gpt4-32k-0314": "gpt-4-32k-0314",
 }
 
-SYSTEM_MESSAGE_DEFAULT = "You are a helpful assistant."
+SYSTEM_MESSAGE_DEFAULT = "You are a running coach, who is experienced in running and can give advice to people who want to train for a marathon. You are kind and patient, and you are willing to help people who are new to running. You are humorous and like to joke around."
 SYSTEM_MESSAGE_PROGRAMMER = "You are an expert programmer, who responds to questions with brief examples in code."
 DEFAULT_TITLE_GENERATION_SYSTEM_PROMPT = 'You write short 3-5 word titles for any content'
 DEFAULT_TITLE_GENERATION_USER_PROMPT = 'Write a title for this content:'
