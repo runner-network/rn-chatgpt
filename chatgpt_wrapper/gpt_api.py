@@ -4,13 +4,14 @@ from flask import Flask, jsonify, request
 
 from chatgpt_wrapper.backends.openai.api import OpenAIAPI
 from chatgpt_wrapper.core.config import Config
-
+from chatgpt_wrapper.core.logger import Logger
 
 def create_application(name, config=None, timeout=60, proxy=None):
     config = config or Config()
     config.set('debug.log.enabled', True)
     gpt = OpenAIAPI(config)
     app = Flask(name)
+    log = Logger('gpt-api', config)
 
     def _error_handler(message, status_code=500):
         return jsonify({"success": False, "error": str(message)}), status_code
@@ -37,6 +38,11 @@ def create_application(name, config=None, timeout=60, proxy=None):
         prompt = json.parse(request.get_data().decode("utf-8"))
         print(f"received prompt: {prompt}")
         success, result, user_message = gpt.ask(prompt)
+        trace = {
+            'promp': prompt[-1],
+            'reply': result
+        }
+        log.info(json.dumps(trace))
         return result
 
     @app.route("/conversations/new", methods=["POST"])
